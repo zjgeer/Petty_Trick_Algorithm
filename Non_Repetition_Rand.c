@@ -10,9 +10,9 @@ typedef struct
 	int length;
 }sqList;
 
-/* ·½·¨Ò» */
-/* ¹¹Ôì¸¨ÖúÊı×é£¬ÅĞ¶ÏÊÇ·ñÖØ¸´ */
-int main(int argc,char *argv[])
+/* æ–¹æ³•ä¸€ */
+/* æ„é€ è¾…åŠ©æ•°ç»„ï¼Œåˆ¤æ–­æ˜¯å¦é‡å¤ */
+void NonRepRand_1(void)
 {
 	int i,cnt;
 	int n;
@@ -22,7 +22,7 @@ int main(int argc,char *argv[])
 	
 	for(i = 0;i < 20;i++)
 	{
-		a[i] = 200;				/* ¸¨ÖúÊı×é±êÖ¾ */
+		a[i] = 200;				/* è¾…åŠ©æ•°ç»„æ ‡å¿— */
 	}
 	cnt = 0;
 	while(cnt < MAXSIZE)
@@ -31,11 +31,61 @@ int main(int argc,char *argv[])
 	
 		if(a[n] == 200)
 		{
-			a[n] = 0;			/* ¸¨ÖúÊı×é±êÖ¾Çå³ı */
-			myList.r[cnt] = n;	/* ´æ´¢ */
+			a[n] = 0;			/* è¾…åŠ©æ•°ç»„æ ‡å¿—æ¸…é™¤ */
+			myList.r[cnt] = n;	/* å­˜å‚¨ */
 			printf("myList.r[%d] = %d \n",cnt,n);
 			cnt++;
 		}
 	}
+}
+
+/* æ–¹æ³•äºŒ,éœ€è¦æ¯”è¾ƒï¼Œè€—è´¹æ—¶é—´è¾ƒé•¿ */
+void NonRepRand_2(void)
+{
+	int i = 0;
+	int j;
+	int n;
+	int flag = 0;
+
+	sqList myList;
+	
+	srand((unsigned)time(NULL));
+	
+	for(j = 0;j < MAXSIZE;j++)
+	{
+		myList.r[j] = 0;
+	}
+
+	while(i < MAXSIZE)
+	{
+		n = rand() % 20 + 1;
+		for(j = 0;j < i;j++)
+		{
+			if(myList.r[j] == n)	/* æœ‰é‡å¤é‡æ–°å¼€å§‹éšæœºäº§ç”Ÿ */ 
+			{
+				flag = 0;
+				break;
+			}
+			else
+			{
+				flag ++;
+			}
+		}			
+		if(flag == i)
+		{
+			flag = 0;
+			myList.r[i] = n;
+			printf("myList.r[%d] = %d \n",i,n);
+			i++;
+		}
+	}
+}
+
+
+int main(int argc,char *argv[])
+{
+	NonRepRand_2();
+	
 	return 0;
 }
+
